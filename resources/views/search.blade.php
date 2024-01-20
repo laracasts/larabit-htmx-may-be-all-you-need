@@ -24,6 +24,9 @@
                         class="w-full rounded-md me-2" 
                     />
                     <button 
+                        hx-get="/search"
+                        hx-target="#search-results"
+                        hx-include="[name='search-term']"
                         class="bg-indigo-600 text-white px-6 text-lg font-semibold py-4 rounded-md"
                     >Search</button>
                 </div>

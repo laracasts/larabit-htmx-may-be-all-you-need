@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Article;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('search');
+});
+
+Route::get('/hello-world', function() {
+    return '<p>hello, world</p>';
+});
+
+Route::get('/search', function(Request $request) {
+    $term = $request->get('search-term');
+    $pageSize = 3;
+
+    if ($term == '') {
+        $results = Article::paginate($pageSize);
+    } else {
+        $results = Article::where('title', 'LIKE', '%' . $term . '%')->paginate($pageSize);
+    }
+
+
+    return view('search-results', ['results' => $results]);
 });
